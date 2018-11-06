@@ -7,6 +7,7 @@ python setup.py build
 python setpy.py install
 ```
 * 用法：
+```
             1、python chptrans.py 1.txt（英文文件）
                 此时将输出1.txt的翻译
             2、python chptrans.py 1.txt（英文文件） 2.txt（将会把翻译的中文写入的文件）
@@ -14,4 +15,4 @@ python setpy.py install
             <font style="color:red">3、python chptrans.py ia（ia等于interactive，交互模式）</font>
                 进入交互模式，输入待翻译的英文并回车后，单独输入"翻译"并回车即可翻译。
                 单独输入"退出"并回车即可退出程序。
-	
+```	
