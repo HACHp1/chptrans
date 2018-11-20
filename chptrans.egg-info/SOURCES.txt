@@ -1,0 +1,10 @@
+README.md
+setup.py
+chptrans/__init__.py
+chptrans/chptrans.py
+chptrans.egg-info/PKG-INFO
+chptrans.egg-info/SOURCES.txt
+chptrans.egg-info/dependency_links.txt
+chptrans.egg-info/entry_points.txt
+chptrans.egg-info/requires.txt
+chptrans.egg-info/top_level.txt

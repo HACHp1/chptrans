@@ -58,7 +58,7 @@ def main():
     else:
         print('''
 ***************************************************************************************
-        欢迎使用 CHP's translator
+        欢迎使用 CHP's translator v1.0
             用法：
             1、python chptrans.py 1.txt（英文文件）
                 此时将输出1.txt的翻译
