@@ -1,10 +1,11 @@
 * 翻译pdf英文论文用的小工具，避免换行符的尴尬，免去打开浏览器的过程，命令行操作
 * 支持三种模式（交互，文本翻译输出，文本翻译至文本。主要功能：换行变空格）
+* 使用Bing接口，感谢Bing提供的接口
 
 * 安装方法：
 ```
 python setup.py build
-python setpy.py install
+python setup.py install
 ```
 * 用法（推荐用3）：
 ```

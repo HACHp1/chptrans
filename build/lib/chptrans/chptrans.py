@@ -4,12 +4,18 @@ import json
 import sys
 import os
 
-
 def mytranslate(content):
-    url = 'https://fanyi.baidu.com/transapi?from=auto&to=zh&query=' + content
-    result = requests.get(url)
+    url = url = 'https://cn.bing.com/ttranslate'
+    
+    data={
+        'text':content,
+        'from':'en',
+        'to':'zh-CHS'
+    }
+    result = requests.post(url,data=data)
+
     try:
-        result = json.loads(result.text)['data'][0]['dst'].replace('。', '。\n')
+        result = json.loads(result.text)['translationResponse'].replace('。', '。\n')
     except KeyError:
         print('查询有误\n')
     return result
@@ -58,7 +64,7 @@ def main():
     else:
         print('''
 ***************************************************************************************
-        欢迎使用 CHP's translator v1.0
+        欢迎使用 CHP's translator
             用法：
             1、python chptrans.py 1.txt（英文文件）
                 此时将输出1.txt的翻译
@@ -67,9 +73,12 @@ def main():
             3、python chptrans.py ia（ia等于interactive，交互模式）
                 进入交互模式，输入待翻译的英文并回车后，单独输入"翻译"并回车即可翻译。
                 单独输入"退出"并回车即可退出程序。
+        感谢：
+            感谢Bing的接口
 ***************************************************************************************
         ''')
 
 
 if __name__ == '__main__':
     main()
+    # print(mytranslate('I like test'))
