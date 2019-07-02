@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="chptrans",
-    version="0.2",
+    version="0.3",
     keywords=("chptrans"),
     description="翻译pdf英文论文用的小工具，避免换行符的尴尬，免去打开浏览器的过程，命令行操作",
     long_description=
@@ -22,7 +22,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     platforms="windows",
-    install_requires=['requests>=2.18.1'],
+    install_requires=['requests>=2.18.1','brotli'],
 
     #scripts=['scripts/chptrans.py'],
     entry_points={

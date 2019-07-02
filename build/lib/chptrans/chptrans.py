@@ -3,19 +3,47 @@ import requests
 import json
 import sys
 import os
+import brotli
+
+url = 'https://cn.bing.com/ttranslate?mkt=zh-CN'
+headers = {
+    'Host': 'cn.bing.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:67.0) Gecko/20100101 Firefox/67.0',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Referer': 'https://www.bing.com/ttranslate?mkt=zh-CN',
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Length': '116',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'Pragma': 'no-cache',
+    'Cache-Control': 'no-cache',
+    'TE': 'Trailers'
+}
+
+
+sess = requests.session()
+
 
 def mytranslate(content):
-    url = url = 'https://cn.bing.com/ttranslate'
-    
-    data={
-        'text':content,
-        'from':'en',
-        'to':'zh-CHS'
+    # print(content)
+    data = {
+        'text': content,
+        'from': 'en',
+        'to': 'zh-CHS'
     }
-    result = requests.post(url,data=data)
-
+    result = sess.post(url, data=data, headers=headers)
+    result.encoding = result.apparent_encoding 
     try:
-        result = json.loads(result.text)['translationResponse'].replace('。', '。\n')
+        # print(result.status_code)
+        # print(result.headers)
+        chi_json  = brotli.decompress(result.content)
+        chi_json=str(chi_json,encoding='utf8')
+        # print(chi_json)
+        result = json.loads(chi_json)[
+            'translationResponse'].replace('。', '。\n')
+
     except KeyError:
         print('查询有误\n')
     return result
@@ -81,4 +109,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # print(mytranslate('I like test'))
