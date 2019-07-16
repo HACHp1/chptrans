@@ -27,3 +27,4 @@ python setup.py install
 ## 更新日志
 * 2019.5.15 百度接口失效，改用Bing接口。
 * 2019.6.25 Bing接口更新，加入firefox头部和brotli解码。
+* 2019.7.16 Bing接口更新，改用Bing接口V3。
