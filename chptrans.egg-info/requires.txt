@@ -1,2 +1,4 @@
 requests>=2.18.1
 brotli
+pynput
+pyautogui

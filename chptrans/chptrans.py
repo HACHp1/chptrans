@@ -1,9 +1,17 @@
 # encoding=utf-8
+
+import win32clipboard as wc #读取剪切板数据
+from pynput.keyboard import Listener
+import pyautogui
+
+import tkinter         #自带的GUI库，生成文本框
+
 import requests
 import json
 import sys
 import os
 import brotli
+
 
 url = 'https://cn.bing.com/ttranslatev3?isVertical=1&IID=translator.5028.1'
 headers = {
@@ -21,6 +29,15 @@ headers = {
     'TE': 'Trailers'
 }
 
+currentData='' 
+
+#获得剪切板数据    
+def getCopyText():
+    wc.OpenClipboard()
+    copy_text = wc.GetClipboardData()
+    wc.CloseClipboard()
+    return copy_text
+
 
 sess = requests.session()
 
@@ -37,77 +54,52 @@ def mytranslate(content):
     result = sess.post(url, data=data, headers=headers)
     result.encoding = result.apparent_encoding 
     try:
-        # print(result.status_code)
-        # print(result.headers)
         chi_json  = brotli.decompress(result.content)
         chi_json=json.loads(str(chi_json,encoding='utf8'))
         raw_res=chi_json[0]['translations'][0]['text']
-        # exit()
-        result = raw_res.replace('。', '。\n')
+        result = raw_res.replace('。', '。\n\n')
 
     except KeyError:
         print('查询有误\n')
     return result
 
+def on_press(key):
+    if str(key)=='\'f\'': # 按f键翻译
+
+        currentData=str(getCopyText())#取得当前剪切板数据
+            
+        ### 翻译 ###
+
+        translate_results = mytranslate(currentData.replace('\n', ' ').replace('\r', ''))
+        x,y=pyautogui.position()
+
+        position="500x400+"+str(x)+"+"+str(y) #取得当前鼠标位置
+        top = tkinter.Tk()#窗口初始化
+        top.title("CHP's translator by HACHp1")
+        top.wm_attributes('-topmost',1)#置顶窗口
+        top.geometry(position)#指定定位生成指定大小窗口
+        e=tkinter.Text()#生成文本框部件
+        e.insert(1.0,translate_results)#插入数据
+        e.pack()#将部件打包进窗口
+        top.mainloop()# 进入消息循环
 
 def main():
-    if (len(sys.argv) == 2):
-        if (sys.argv[1] == 'ia'):
-            strings = ''
-            laststrings = ''  # 记录上一个字符串
-            while (1):
-                string = input('\n请输入待翻译的英文；输入"退出"退出，"翻译"翻译，"重复"重新翻译：\n')
-                os.system('cls')
-                if (string == '退出'):
-                    break
-                elif (string == '翻译'):
-                    laststrings = strings
-                    print(mytranslate(strings))
-                    strings = ''
-                elif (string == '重复'):
-                    print(mytranslate(laststrings))
-                else:
-                    strings += ' ' + string
-        else:
-            string = ''
-            engsfile = sys.argv[1]
-            with open(engsfile) as f:
-                strings = f.readlines()
-            for vstr in strings:
-                string += vstr.replace('\n', ' ')
-            print(mytranslate(string))
-    elif (len(sys.argv) == 3):
-        string = ''
-        engsfile = sys.argv[1]
-        wfile = sys.argv[2]
-        with open(engsfile) as f:
-            strings = f.readlines()
-        fw = open(wfile, 'w', encoding='gbk')
-        for vstr in strings:
-            string += vstr.replace('\n', ' ')
-        translated = mytranslate(string)
-        fw.write(translated)
-        print(translated)
-        fw.close()
-
-    else:
-        print('''
+    # 创建要提交的数据
+    currentData=str(getCopyText())
+    
+    print('''
 ***************************************************************************************
         欢迎使用 CHP's translator
-            用法：
-            1、python chptrans.py 1.txt（英文文件）
-                此时将输出1.txt的翻译
-            2、python chptrans.py 1.txt（英文文件） 2.txt（将会把翻译的中文写入的文件）
-                此时将1.txt的翻译输出，并将其保存至2.txt
-            3、python chptrans.py ia（ia等于interactive，交互模式）
-                进入交互模式，输入待翻译的英文并回车后，单独输入"翻译"并回车即可翻译。
-                单独输入"退出"并回车即可退出程序。
+        用法：
+            复制想翻译的英文（ctrl+c)，复制完后按f键翻译（翻译器会将剪切板中的内容翻译为中文）
         感谢：
             感谢Bing的接口
 ***************************************************************************************
         ''')
-
+    with Listener(on_press=on_press) as listener:
+        listener.join()
 
 if __name__ == '__main__':
-    # print(mytranslate('I will take a test tomorrow!'))
     main()
+    
+              

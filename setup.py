@@ -22,7 +22,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     platforms="windows",
-    install_requires=['requests>=2.18.1','brotli'],
+    install_requires=['requests>=2.18.1','brotli','pynput','pyautogui'],
 
     #scripts=['scripts/chptrans.py'],
     entry_points={

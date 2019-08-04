@@ -2,6 +2,9 @@ README.md
 setup.py
 chptrans/__init__.py
 chptrans/chptrans.py
+chptrans/chptrans_demo.py
+chptrans/chptrans_old.py
+chptrans/test.py
 chptrans.egg-info/PKG-INFO
 chptrans.egg-info/SOURCES.txt
 chptrans.egg-info/dependency_links.txt
