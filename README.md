@@ -8,14 +8,14 @@
 ## 安装方法
 * 安装前请使用pip安装brotli、pynput、pyautogui以及requests库
 ```
-python setup.py build
-python setup.py install
+python3 setup.py build
+python3 setup.py install
 ```
 
 ## 用法：
-```
-            复制想翻译的英文（ctrl+c)，复制完后按f键翻译（翻译器会将剪切板中的内容翻译为中文）
-```	
+
+* 安装好后，在命令行中输入`chptrans`打开翻译器，复制想翻译的英文（ctrl+c)，复制完后按f键翻译（翻译器会将剪切板中的内容翻译为中文）
+
 
 ## 使用截图
 ![](show.png)
