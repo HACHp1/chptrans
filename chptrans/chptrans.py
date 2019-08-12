@@ -34,7 +34,10 @@ currentData=''
 #获得剪切板数据    
 def getCopyText():
     wc.OpenClipboard()
-    copy_text = wc.GetClipboardData()
+    try:
+        copy_text = wc.GetClipboardData()
+    except TypeError:
+        copy_text='Please copy text!!!'
     wc.CloseClipboard()
     return copy_text
 

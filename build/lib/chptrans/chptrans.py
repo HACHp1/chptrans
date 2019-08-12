@@ -57,7 +57,7 @@ def mytranslate(content):
         chi_json  = brotli.decompress(result.content)
         chi_json=json.loads(str(chi_json,encoding='utf8'))
         raw_res=chi_json[0]['translations'][0]['text']
-        result = raw_res.replace('。', '。\n')
+        result = raw_res.replace('。', '。\n\n')
 
     except KeyError:
         print('查询有误\n')
@@ -70,11 +70,12 @@ def on_press(key):
             
         ### 翻译 ###
 
-        translate_results = mytranslate(currentData)
+        translate_results = mytranslate(currentData.replace('\n', ' ').replace('\r', ''))
         x,y=pyautogui.position()
 
         position="500x400+"+str(x)+"+"+str(y) #取得当前鼠标位置
         top = tkinter.Tk()#窗口初始化
+        top.title("CHP's translator by HACHp1")
         top.wm_attributes('-topmost',1)#置顶窗口
         top.geometry(position)#指定定位生成指定大小窗口
         e=tkinter.Text()#生成文本框部件
