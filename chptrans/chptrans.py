@@ -73,7 +73,7 @@ def on_press(key):
             
         ### 翻译 ###
 
-        translate_results = mytranslate(currentData.replace('\n', ' ').replace('\r', ''))
+        translate_results = mytranslate(currentData.replace('-\r\n', '').replace('-\n', '').replace('\n', ' ').replace('\r', ''))
         x,y=pyautogui.position()
 
         position="500x400+"+str(x)+"+"+str(y) #取得当前鼠标位置
