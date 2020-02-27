@@ -29,19 +29,20 @@ sess = requests.session()
 def mytranslate(content):
     # print(content)
     data = {
-        'fromLang':'en',
+        'fromLang': 'en',
         'text': content,
         'from': 'en',
         'to': 'zh-Hans'
     }
     result = sess.post(url, data=data, headers=headers)
-    result.encoding = result.apparent_encoding 
+    result.encoding = result.apparent_encoding
     try:
         # print(result.status_code)
         # print(result.headers)
-        chi_json  = brotli.decompress(result.content)
-        chi_json=json.loads(str(chi_json,encoding='utf8'))
-        raw_res=chi_json[0]['translations'][0]['text']
+        # chi_json  = brotli.decompress(result.content)
+        chi_json = result.content
+        chi_json = json.loads(str(chi_json, encoding='utf8'))
+        raw_res = chi_json[0]['translations'][0]['text']
         # exit()
         result = raw_res.replace('。', '。\n')
 
@@ -109,5 +110,5 @@ def main():
 
 
 if __name__ == '__main__':
-    # print(mytranslate('I will take a test tomorrow!'))
-    main()
+    print(mytranslate('I will take a test tomorrow!'))
+    # main()

@@ -17,7 +17,7 @@ setup(
 
     url="",
     author="CHP",
-    author_email="hachp1@163.com",
+    author_email="hach.chp@gmail.com",
 
     packages=find_packages(),
     include_package_data=True,

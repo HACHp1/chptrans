@@ -1,11 +1,16 @@
-
-from pynput.keyboard import Listener
-
-def on_press(key):
-    # 监听按键
-    print(str(key))
-    if str(key)=='Key.ctrl_l':
-        print('123')
-
-with Listener(on_press=on_press) as listener:
-    listener.join()
+from tkinter import *
+import time
+ 
+num=0
+ 
+tk=Tk()
+canvas=Canvas(tk,width=500,height=500)
+canvas.pack()
+itext=canvas.create_text(30,30,text=str(num))
+while num<7:
+    num +=1
+    canvas.itemconfig(itext,text=str(num))
+    canvas.insert(itext,12,'')
+    tk.update()
+    print('num=%d'%num)
+    tk.after(1000)
