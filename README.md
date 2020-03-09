@@ -13,13 +13,13 @@
 
 * 安装前请使用pip安装pywin32、brotli、pynput、pyautogui以及requests库：
 ```
-pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple pywin32 brotli pynput pyautogui requests
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pywin32 brotli pynput pyautogui requests
 ```
 
 * 安装：
 ```
-python3 setup.py build
-python3 setup.py install
+python setup.py build
+python setup.py install
 ```
 
 ## 用法
