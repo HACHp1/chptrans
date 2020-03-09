@@ -3,6 +3,7 @@ setup.py
 chptrans/__init__.py
 chptrans/chptrans.py
 chptrans/chptrans_demo.py
+chptrans/chptrans_n.py
 chptrans/chptrans_old.py
 chptrans/test.py
 chptrans.egg-info/PKG-INFO

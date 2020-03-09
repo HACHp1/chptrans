@@ -27,7 +27,8 @@ setup(
     #scripts=['scripts/chptrans.py'],
     entry_points={
         'console_scripts': [
-            'chptrans = chptrans.chptrans:main'
+            'chptrans = chptrans.chptrans:main',
+            'chptransn = chptrans.chptrans_n:main'
         ],
     }
 )

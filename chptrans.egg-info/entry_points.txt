@@ -1,3 +1,4 @@
 [console_scripts]
 chptrans = chptrans.chptrans:main
+chptransn = chptrans.chptrans_n:main
 
