@@ -84,7 +84,7 @@ def on_press(key):
 
         currentData = str(getCopyText())  # 取得当前剪切板数据
         currentData = currentData.replace(
-            '- ', '').replace('-\r\n', '').replace('-\n', '').replace('\n', ' ').replace('\r', '')
+            '- ', '').replace('-\r\n', '').replace('-\n', '').replace('\n', ' ').replace('\r', '').strip()
         ### 翻译 ###
 
         translate_results = mytranslate(currentData)
@@ -94,7 +94,7 @@ def on_press(key):
             temp_ch = translate_results.split('。')[:-1]
 
             # print(len(temp_curdata), len(temp_ch))
-            assert (len(temp_curdata) == len(temp_ch))
+            # assert (len(temp_curdata) == len(temp_ch))
 
             translate_results = ''
             try:
@@ -102,7 +102,7 @@ def on_press(key):
                     translate_results = translate_results + \
                         temp_ch[i] + '。\n'+temp_curdata[i]+'. \n------------------------------------\n\n'
             except IndexError:
-                translate_results = '中英分段数量不匹配，请检查中英内容：\n'+translate_results
+                translate_results = '中英分段数量不匹配，对照结果可能有误，请检查中英内容：\n\n'+translate_results
 
         else:
             translate_results = translate_results.replace('。', '。\n\n')

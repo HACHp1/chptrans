@@ -2,7 +2,6 @@ README.md
 setup.py
 chptrans/__init__.py
 chptrans/chptrans.py
-chptrans/chptrans_no_newline.py
 chptrans/test.py
 chptrans.egg-info/PKG-INFO
 chptrans.egg-info/SOURCES.txt

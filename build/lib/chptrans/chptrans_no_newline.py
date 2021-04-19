@@ -115,7 +115,9 @@ def on_press(key):
         top.title("CHP's translator by HACHp1")
         top.wm_attributes('-topmost', 1)  # 置顶窗口
         top.geometry(position)  # 指定定位生成指定大小窗口
+        top.configure(bg=('#%02x%02x%02x' % (199, 237, 204)))
         e = tkinter.Text()  # 生成文本框部件
+        e.configure(bg=('#%02x%02x%02x' % (199, 237, 204)))
         e.insert(1.0, translate_results)  # 插入数据
         e.pack()  # 将部件打包进窗口
         top.mainloop()  # 进入消息循环
