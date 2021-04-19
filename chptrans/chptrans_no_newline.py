@@ -100,12 +100,12 @@ def on_press(key):
             try:
                 for i in range(len(temp_curdata)):
                     translate_results = translate_results + \
-                        temp_ch[i] + '。\n'+temp_curdata[i]+'. \n------------------------------------\n\n'
+                        temp_ch[i] + '。\n'+temp_curdata[i]+'. \n------------------------------------\n'
             except IndexError:
                 translate_results = '中英分段数量不匹配，请检查中英内容：\n'+translate_results
 
-        else:
-            translate_results = translate_results.replace('。', '。\n\n')
+        # else:
+            # translate_results = translate_results.replace('。', '。\n\n')
 
         ### 显示 ###
         x, y = pyautogui.position()

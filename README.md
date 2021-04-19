@@ -7,29 +7,37 @@
 
 ## 环境
 
-* windows、python3
+* 支持Win/MAC/ubuntu，python3
 
 ## 安装方法
 
-* 安装前请使用pip安装pywin32、brotli、pynput、pyautogui以及requests库：
-```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pywin32 brotli pynput pyautogui requests
+* 安装前请使用pip安装keyboard、brotli、xerox、pyautogui以及requests库：
+
+``` 
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple keyboard brotli xerox pyautogui requests
 ```
 
 * 安装：
-```
+
+``` 
 python setup.py build
 python setup.py install
 ```
 
 ## 用法
 
-* 安装好后，在命令行中输入`chptrans`打开翻译器，复制想翻译的英文（ctrl+c)，复制完后按f键翻译（翻译器会将剪切板中的内容翻译为中文）
-
+* 安装好后，在命令行中输入`chptrans`打开翻译器，复制想翻译的英文（ctrl+c)，复制完后按f键翻译（翻译器会将剪切板中的内容翻译为中文）。
+* 按`ctrl+e`可以切换中英对照模式。
 
 ## 使用截图
 
-![](show.png)
+普通模式：
+
+![](img/show.png)
+
+中英对照模式：
+
+![](img/show2.png)
 
 ## 更新日志
 
@@ -40,8 +48,9 @@ python setup.py install
 * 2019.8.12 增加对复制文件等异常情况的处理
 * 2019.9.20 换行处部分处理
 * 2020.2.27 修正了一处异常处理
+* 2021.4.19 兼容Windows、MAC和ubuntu，新增中英对照模式
 
 ## todo
 
-* 按键关闭翻译窗口
-* 新窗口连续翻译
+* ~~按键关闭翻译窗口~~（感觉不如直接用鼠标点叉叉）
+* ~~新窗口连续翻译~~（太麻烦了，不够简洁）
