@@ -91,7 +91,12 @@ def on_press(key):
 
         if ch_en_mode:
             temp_curdata = currentData.split('. ')
-            temp_ch = translate_results.split('。')[:-1]
+
+            temp_seg = translate_results.split('。')
+            if len(temp_seg) > 1:
+                temp_ch = translate_results.split('。')[:-1]
+            else:
+                temp_ch = [translate_results]
 
             # print(len(temp_curdata), len(temp_ch))
             # assert (len(temp_curdata) == len(temp_ch))
@@ -100,7 +105,8 @@ def on_press(key):
             try:
                 for i in range(len(temp_curdata)):
                     translate_results = translate_results + \
-                        temp_ch[i] + '。\n'+temp_curdata[i]+'. \n------------------------------------\n\n'
+                        temp_ch[i] + '。\n'+temp_curdata[i] + \
+                        '. \n------------------------------------\n\n'
             except IndexError:
                 translate_results = '中英分段数量不匹配，对照结果可能有误，请检查中英内容：\n\n'+translate_results
 
