@@ -2,6 +2,7 @@
 import requests
 import brotli
 import urllib
+from .utils import re_split
 
 '''
 翻译器api
@@ -59,7 +60,7 @@ def translate_bing(content):
 
 def translate_youdao(content):
 
-    seg_content=content.split('. ')
+    seg_content=re_split(content,'([.?]\s)')
     transres=''
 
     for vcontent in seg_content:
@@ -73,7 +74,7 @@ def translate_youdao(content):
         html = wy.read().decode('utf-8')
         ta = json.loads(html)
 
-        transres+=ta['translateResult'][0][0]['tgt']+'。'
+        transres+=ta['translateResult'][0][0]['tgt']+' '
     
     return transres
 

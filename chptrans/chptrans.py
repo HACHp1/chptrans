@@ -7,6 +7,7 @@ import pyautogui
 import tkinter  # 自带的GUI库，生成文本框
 
 from .core.trans_api import translators
+from .core.utils import re_split
 
 currentData = ''
 
@@ -39,9 +40,9 @@ def on_press(vcmd):
     global translator_i
     global mytranslate
 
-    if vcmd == 'translator': # 切换翻译器
+    if vcmd == 'translator':  # 切换翻译器
         translator_i = (translator_i+1) % translator_num
-        mytranslate=translators[translator_i]
+        mytranslate = translators[translator_i]
         print('当前翻译器：'+mytranslate.__name__)
 
     elif vcmd == 'zh_en':  # 切换中英对照模式
@@ -61,9 +62,9 @@ def on_press(vcmd):
         translate_results = mytranslate(currentData)
 
         if ch_en_mode:
-            temp_curdata = currentData.split('. ')
+            temp_curdata = re_split(currentData, '([.?]\s)')
 
-            temp_seg = translate_results.split('。')
+            temp_seg = re_split(translate_results, '(。|？|\?\s)')
             if len(temp_seg) > 1:
                 if temp_seg[-1] == '':
                     temp_ch = temp_seg[:-1]
@@ -79,8 +80,8 @@ def on_press(vcmd):
             try:
                 for i in range(len(temp_curdata)):
                     translate_results = translate_results + \
-                        temp_ch[i] + '。\n'+temp_curdata[i] + \
-                        '. \n------------------------------------\n\n'
+                        temp_ch[i] + '\n'+temp_curdata[i] + \
+                        ' \n------------------------------------\n\n'
             except IndexError:
                 translate_results = '中英分段数量不匹配，对照结果可能有误，请检查中英内容：\n\n'+translate_results
 
@@ -126,7 +127,7 @@ def main():
     # 注册按键热键
     keyboard.add_hotkey('f', on_press, args=('fanyi',))  # 翻译
     keyboard.add_hotkey('ctrl+e', on_press, args=('zh_en',))  # 中英对照模型切换
-    keyboard.add_hotkey('ctrl+r', on_press, args=('translator',)) # 翻译器切换
+    keyboard.add_hotkey('ctrl+r', on_press, args=('translator',))  # 翻译器切换
     # 开始监听
     recorded = keyboard.record(until='esc')
 

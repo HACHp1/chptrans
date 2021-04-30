@@ -11,3 +11,4 @@ chptrans.egg-info/requires.txt
 chptrans.egg-info/top_level.txt
 chptrans/core/__init__.py
 chptrans/core/trans_api.py
+chptrans/core/utils.py
