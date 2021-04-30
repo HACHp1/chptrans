@@ -42,12 +42,17 @@ def getCopyText():
         copy_text = xerox.paste()
     except TypeError:
         copy_text = 'Please copy text!!!'
+    except pywintypes.error:
+        copy_text = 'Please copy text!!!'
     return copy_text
 
 
 # 传入url编码过的英文内容
 def mytranslate(content):
     # print(content)
+    if content == '':
+        return '查询不能为空\n'
+
     data = {
         'fromLang': 'en',
         'text': content,
@@ -71,7 +76,7 @@ def mytranslate(content):
         chi_json = json.loads(str(result.content, encoding='utf8'))
         raw_res = chi_json[0]['translations'][0]['text']
     except KeyError:
-        print('查询有误\n')
+        raw_res = '查询有误\n'
     return raw_res
 
 
@@ -94,7 +99,10 @@ def on_press(key):
 
             temp_seg = translate_results.split('。')
             if len(temp_seg) > 1:
-                temp_ch = translate_results.split('。')[:-1]
+                if temp_seg[-1] == '':
+                    temp_ch = temp_seg[:-1]
+                else:
+                    temp_ch = temp_seg
             else:
                 temp_ch = [translate_results]
 
