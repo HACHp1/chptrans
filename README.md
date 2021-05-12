@@ -11,10 +11,10 @@
 
 ## 安装方法
 
-* 安装前请使用pip安装keyboard、brotli、xerox、pyautogui以及requests库：
+* 安装前请使用pip安装keyboard、brotli、xerox、pyautogui、PyExecJS以及requests库：
 
 ``` bash
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple keyboard brotli xerox pyautogui requests
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple keyboard brotli xerox pyautogui requests PyExecJS
 ```
 
 * 安装：
