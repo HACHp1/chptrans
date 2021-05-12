@@ -6,8 +6,13 @@ import pyautogui
 
 import tkinter  # 自带的GUI库，生成文本框
 
-from .core.trans_api import translators
-from .core.utils import re_split
+if __name__=='__main__':
+    from core.trans_api import translators
+    from core.utils import re_split
+else:
+    from .core.trans_api import translators
+    from .core.utils import re_split
+
 
 currentData = ''
 
@@ -27,8 +32,8 @@ def getCopyText():
         copy_text = xerox.paste(xsel=True)
     except TypeError:
         copy_text = 'Please copy text!!!'
-    except pywintypes.error:
-        copy_text = 'Please copy text!!!'
+    # except pywintypes.error:
+    #     copy_text = 'Please copy text!!!'
     return copy_text
 
 
@@ -109,27 +114,35 @@ def main():
     主程序
     '''
     # 创建要提交的数据
-    currentData = str(getCopyText())
+    # currentData = str(getCopyText())
 
     print('''
 ***************************************************************************************
+         ██████╗██╗  ██╗██████╗ ████████╗██████╗  █████╗ ███╗   ██╗███████╗
+        ██╔════╝██║  ██║██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║██╔════╝
+        ██║     ███████║██████╔╝   ██║   ██████╔╝███████║██╔██╗ ██║███████╗
+        ██║     ██╔══██║██╔═══╝    ██║   ██╔══██╗██╔══██║██║╚██╗██║╚════██║
+        ╚██████╗██║  ██║██║        ██║   ██║  ██║██║  ██║██║ ╚████║███████║
+         ╚═════╝╚═╝  ╚═╝╚═╝        ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝
+
         欢迎使用 CHP's translator
         用法：
             复制想翻译的英文（ctrl+c)，复制完后按f键翻译（翻译器会将剪切板中的内容翻译为中文）
             切换中英对照模式（ctrl+e）：方便进行单句的中英对比
-            切换翻译器（ctrl+r）：目前支持Bing和有道
+            切换翻译器（ctrl+r）：目前支持百度、Bing、和有道
             按Esc键退出
-        感谢：
-            感谢Bing的接口
 ***************************************************************************************
         ''')
+
+    print('当前翻译器：'+mytranslate.__name__)
+    print('当前模式：仅显示翻译')
 
     # 注册按键热键
     keyboard.add_hotkey('f', on_press, args=('fanyi',))  # 翻译
     keyboard.add_hotkey('ctrl+e', on_press, args=('zh_en',))  # 中英对照模型切换
     keyboard.add_hotkey('ctrl+r', on_press, args=('translator',))  # 翻译器切换
     # 开始监听
-    recorded = keyboard.record(until='esc')
+    keyboard.record(until='esc')
 
 
 if __name__ == '__main__':

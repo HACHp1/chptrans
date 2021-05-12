@@ -4,6 +4,8 @@ import brotli
 import urllib
 from .utils import re_split
 
+from .BaiduTranslate import TransDict
+
 '''
 翻译器api
 传入url编码过的英文内容字符串
@@ -78,9 +80,17 @@ def translate_youdao(content):
     
     return transres
 
+
+def translate_baidu(content):
+
+    d = TransDict()
+    json = d.dictionary(content, dst='zh', src='en')
+    return json['trans_result']['data'][0]['dst']
+
 # 翻译器列表
 
 translators = [
+    translate_baidu,
     translate_bing,
-    translate_youdao
+    translate_youdao,
 ] 

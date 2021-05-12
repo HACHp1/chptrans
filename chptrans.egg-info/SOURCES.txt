@@ -9,6 +9,7 @@ chptrans.egg-info/dependency_links.txt
 chptrans.egg-info/entry_points.txt
 chptrans.egg-info/requires.txt
 chptrans.egg-info/top_level.txt
+chptrans/core/BaiduTranslate.py
 chptrans/core/__init__.py
 chptrans/core/trans_api.py
 chptrans/core/utils.py
