@@ -70,12 +70,12 @@ def translate_bing(content):
         res = sess.get('https://www.bing.com/translator', headers=headers)
 
         tmp_txt = res.text
-        pos1 = tmp_txt.find('var params_RichTranslateHelper = ')
+        pos1 = tmp_txt.find('var params_AbusePreventionHelper = ')
         pos2 = tmp_txt.find(';', pos1)
         pos3 = tmp_txt.find('"ig":"')
         pos4 = tmp_txt.find(',', pos3)
 
-        t1 = tmp_txt[pos1+len('var params_RichTranslateHelper = '):pos2]
+        t1 = tmp_txt[pos1+len('var params_AbusePreventionHelper = '):pos2]
         t1 = json.loads(t1)
         t2 = tmp_txt[pos3:pos4]
         key = t1[0]

@@ -42,40 +42,63 @@ def translate_bing_api(content):
     return translate_data
 
 
-def translate_bing(content):
-    url = 'https://cn.bing.com/ttranslatev3?isVertical=1&=&IG=43F6EAE362AC485D8E0BF54A0F50F65D&IID=translator.5023.1'
+class BingToken:
+    key = None
+    token = None
+    ig = None
+    sess = None
+    initialed = False
 
+
+bingToken = BingToken()
+
+
+def translate_bing(content):
+
+    global bingToken
     headers = {
-        'Host': 'cn.bing.com',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/107.0',
         'Accept': '*/*',
         'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
         'Accept-Encoding': 'gzip, deflate',
         'Referer': 'https://cn.bing.com/translator',
-        'Content-type': 'application/x-www-form-urlencoded',
-        'Content-Length': '927',
-        'Origin': 'https://cn.bing.com',
-        'Connection': 'close',
-        'Cookie': 'MUID=0FC1DA47D10C651B259BC81BD0B664E7; _EDGE_V=1; SRCHD=AF=NOFORM; SRCHUID=V=2&GUID=9AB6F7E5646A4786B569618A5F59C9DC&dmnchg=1; SRCHUSR=DOB=20221114&T=1668562992000; SRCHHPGUSR=SRCHLANG=zh-Hans&HV=1668563603&WTS=63804159792; _tarLang=default=zh-Hans; _TTSS_IN=hist=WyJlbiIsImF1dG8tZGV0ZWN0Il0=; _TTSS_OUT=hist=WyJ6aC1IYW5zIl0=; SUID=M; _EDGE_S=SID=16FA16E71A4C66E939B804B91BF667B6; _SS=SID=16FA16E71A4C66E939B804B91BF667B6; ipv6=hit=1668566595271&t=4; btstkn=S01zalQ7p%252B2YrnqgczdHOZw%252B6XsIGWbad61FcQGvtZKrF%252BsraySWpl0jLYkK2AuxiHVPd1K%252B7UWFLBOQB5yfgna6BjbkjOYn7EBKf5PZFBM%253D; SNRHOP=I=&TS=; MUIDB=0FC1DA47D10C651B259BC81BD0B664E7',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin'
     }
+
+    if not bingToken.initialed:
+
+        sess = requests.Session()
+        res = sess.get('https://www.bing.com/translator', headers=headers)
+
+        tmp_txt = res.text
+        pos1 = tmp_txt.find('var params_AbusePreventionHelper = ')
+        pos2 = tmp_txt.find(';', pos1)
+        pos3 = tmp_txt.find('"ig":"')
+        pos4 = tmp_txt.find(',', pos3)
+
+        t1 = tmp_txt[pos1+len('var params_AbusePreventionHelper = '):pos2]
+        t1 = json.loads(t1)
+        t2 = tmp_txt[pos3:pos4]
+        key = t1[0]
+        token = t1[1]
+        ig = t2[6:-1]
+
+        bingToken.sess = sess
+        bingToken.key = key
+        bingToken.token = token
+        bingToken.ig = ig
 
     data = {
         'fromLang': 'en',
         'text': content,
         'to': 'zh-Hans',
-        'token': '5iIThOcjbkBquoI1iWnDyetbweEq_dyS',
-        'key': '1668563596751'
+        'token': bingToken.token,
+        'key': bingToken.key
     }
 
-    try:
-        res = requests.post(url, data=data, headers=headers)
-        ts = json.loads(res.text)
-        translate_data = ts[0]['translations'][0]['text']
-    except ValueError:
-        translate_data = 'Bing接口请求过快，请一分钟后再翻译。'
+    url = f'https://cn.bing.com/ttranslatev3?isVertical=1&=&IG={bingToken.ig}&IID=translator.5023.1'
+    res = sess.post(url, data=data, headers=headers)
+    translate_data = json.loads(res.text)[0]['translations'][0]['text']
+
     return translate_data
 
 
